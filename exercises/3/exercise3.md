@@ -56,7 +56,9 @@ Closing up shop for the day!
 ```
 
 
-You should also write appropriate unit tests for each public method.  For each of the modified public method in RentACat.java, write at least two unit tests.
+You should also write appropriate unit tests for each public method.  There should be at least one unit test per method, and a total of at least SIX unit tests.  You may group these however you like - (e.g., one unit test for three methods, and three for the last one; two unit tests for two methods, one unit test each for the other two; etc.)
+
+Note that while I have provided a TestRunner, I have NOT provided a Test file!  You will need to create the Test file as well as modify the TestRunner to include the correct classes.  You can view the CommandLineJunit subdirectory for an example of how to do this.
 
 You should use test doubles/mocks for any references to classes other than the one under test (i.e., double or mock any Cat objects).  You may use an ArrayList of doubled objects (that is, you do not need to double ArrayList itself).
 
@@ -127,7 +129,9 @@ public int lotsOfQuacks(Duck d) {
 * Testing println's or other output is difficult - try to have methods return Strings which are easier to test.  It is possible to test for I/O but it requires some extra steps - see Chapter 14, Section 6 of the textbook for instructions.
   
 
-Please send me a link to the GitHub repository where you stored it before the beginning of the next class, along with any partner with whom you worked on the project.
+Please send me a link to the GitHub repository where you stored it before the beginning of the next class, along with any partner with whom you worked on the project.  Be sure to CC your partner so that they know the email was sent!
+
+If you finish by 9 AM tomorrow morning, I will send you feedback which may help you in your deliverable.  If you send it after then, I may not get a chance to review it before the deliverable is due (although I will do my best).
 
 ```
 Program works correctly: 0.5 point
