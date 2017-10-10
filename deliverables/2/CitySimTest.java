@@ -33,31 +33,28 @@ public class CitySimTest {
       city.connectLocs(locations);
 
       for(Location l : locations) {
-        assert(l.getDestinations().size() > 0);
+        assertTrue(l.getDestinations().size() > 0);
       }
     }
 
-  @Test
-    //Test that drivers were placed in random locs
-    public void testAddDriversToMap() {
-      CitySim9005 city = new CitySim9005();
 
-      ArrayList<Location> locations = new ArrayList<Location>();
-      locations.add(new Location("Hotel", false));
-      locations.add(new Location("Diner", false));
-      locations.add(new Location("Library", false));
-      locations.add(new Location("Coffee", false));
-      locations.add(new Location("Philadelphia", true));
-      locations.add(new Location("Cleveland", true));
+    @Test
+      //Test that add cars places the cars in random spots to begin with
+      public void testAddDriversToMapRandom() {
+        CitySim9005 city = new CitySim9005();
 
-      Random r = new Random(13242);
-      ArrayList<Driver> drivers = city.addDriversToMap(locations, r);
-      ArrayList<Driver> drivers2 = city.addDriversToMap(locations, r);
-
-      assertNotEquals(drivers, drivers2);
-
-    }
-
+        ArrayList<Location> locations = new ArrayList<Location>();
+        locations.add(new Location("Hotel", false));
+        locations.add(new Location("Diner", false));
+        locations.add(new Location("Library", false));
+        locations.add(new Location("Coffee", false));
+        locations.add(new Location("Philadelphia", true));
+        locations.add(new Location("Cleveland", true));
+        Random r = new Random(2323);
+        ArrayList<Driver> drivers = city.addDriversToMap(locations, r);
+        ArrayList<Driver> drivers2 = city.addDriversToMap(locations, r);
+        assertNotEquals(drivers, drivers2);
+      }
 
 
 }

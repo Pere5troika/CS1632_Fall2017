@@ -8,14 +8,13 @@ class CitySim9005 {
 
     Random r = new Random();
     Scanner in = new Scanner(System.in);
-    System.out.println("Welcome to City Sim 9005\nPlease enter a number to seed the generator:");
+    System.out.println("Welcome to City Sim 9005\nPlease enter a number to seed the generator.");
     try {
       r = new Random(in.nextLong());
     } catch (Exception e) {
       System.out.println("ERROR: Enter one integer argument.");
       System.exit(0);
     }
-
     //1. Make locations and add streets
     ArrayList<Location> locations = makeLocs();
     connectLocs(locations);
@@ -24,14 +23,13 @@ class CitySim9005 {
     ArrayList<Driver> drivers = addDriversToMap(locations, r);
 
     //3.iterate turns
-    runGame(locations, drivers, r);
+    runGame(drivers, r);
   }
 
   //Create locations
   public static ArrayList<Location> makeLocs() {
     ArrayList<Location> locations = new ArrayList<Location>();
 
-    //1. add Hotel
     locations.add(new Location("Hotel", false));
     locations.add(new Location("Diner", false));
     locations.add(new Location("Library", false));
@@ -81,8 +79,8 @@ class CitySim9005 {
   }
 
   //This runs the game iterating through each driver and having him roam the city until he leaves
-  public static void runGame(ArrayList<Location> locations, ArrayList<Driver> drivers, Random r) {
-    for(int x = 0; x < 5; x++) {
+  public static void runGame(ArrayList<Driver> drivers, Random r) {
+    for(int x = 0; x < drivers.size(); x++) {
       boolean outsideReached = false;
       while(!outsideReached) {
         int plus1Driver = x + 1;
@@ -104,4 +102,5 @@ class CitySim9005 {
       }
     }
   }
+
 }
