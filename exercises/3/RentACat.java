@@ -227,7 +227,11 @@ public class RentACat {
 			    }
 			} catch (Exception nfex) {
 			    System.err.println("Invalid cat ID.");
+<<<<<<< HEAD
           sc.next();
+=======
+			    sc.next();
+>>>>>>> 81455d30ec636516858b24b61e4132cfc55ee457
 			}
 		    }
 
