@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class Location {
-  ArrayList<Destination> destinations = new ArrayList<Destination>();
+  ArrayList<Street> streets = new ArrayList<Street>();
   boolean outside;
   String cityName;
 
@@ -10,12 +10,12 @@ class Location {
     this.outside = outside;
   }
 
-  public void addDestination(Destination dest) {
-    destinations.add(dest);
+  public void addStreet(Street dest) {
+    streets.add(dest);
   }
 
-  public ArrayList getDestinations() {
-    return destinations;
+  public ArrayList<Street> getStreets() {
+    return streets;
   }
 
   public String getCityName() {

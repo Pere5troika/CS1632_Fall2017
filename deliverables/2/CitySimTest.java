@@ -1,60 +1,124 @@
-import org.junit.Test;
-import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.Random;
-
-import org.mockito.*;
-
+import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 public class CitySimTest {
 
+
+  Location hotel;
+
   @Test
-    //Test makes sure that makeLoc()
-    //produces 6 locations for the city
-    public void testMakeLocsSize() {
-    CitySim9005 city = new CitySim9005();
-    ArrayList<Location> locs = city.makeLocs();
-    assertEquals(locs.size(), 6);
+  //Tests that the city hits all methods
+  //and constructs each variable
+  public void testCityConstructor() {
+    City test = new City(12, 1);
+    assertEquals(1, test.numDrivers);
+    assertNotNull(test.r);
+    assertNotNull(test.locations);
+    assertNotNull(test.drivers);
   }
 
   @Test
-    //Check that connectLocs added destinations to
-    //each of the locations
-    public void testConnectLocs() {
-      CitySim9005 city = new CitySim9005();
+  //tests street construction
+  public void testStreetGetters() {
+    Location hotel = mock(Location.class);
+    Street test = new Street(hotel, "Street name");
+    assertEquals(test.getLocation(), hotel);
+    assertEquals(test.getStreet(), "Street name");
+  }
 
-      ArrayList<Location> locations = new ArrayList<Location>();
-      locations.add(new Location("Hotel", false));
-      locations.add(new Location("Diner", false));
-      locations.add(new Location("Library", false));
-      locations.add(new Location("Coffee", false));
-      locations.add(new Location("Philadelphia", true));
-      locations.add(new Location("Cleveland", true));
+  @Test
+  //tests location construction
+  public void testLocationConstructionGetters() {
+    hotel = new Location("Hotel", false);
+    assertEquals(hotel.getCityName(), "Hotel");
+    assertEquals(hotel.getOutside(), false);
+  }
 
-      city.connectLocs(locations);
+  @Test
+  //tests adding a street to a location
+  //and displays its name
+  public void testLocationAddStreet() {
+    hotel = new Location("Hotel", false);
 
-      for(Location l : locations) {
-        assertTrue(l.getDestinations().size() > 0);
-      }
+    Street aStreet = mock(Street.class);
+    when(aStreet.getStreet()).thenReturn("Some St");
+    hotel.addStreet(aStreet);
+
+    assertEquals(hotel.getStreets().get(0).getStreet(), "Some St");
+  }
+
+  @Test
+  //tests that an added street goes to the proper dest
+  public void testLocationAddStreetDest() {
+    hotel = new Location("Hotel", false);
+
+    Location testLoc = mock(Location.class);
+    Street aStreet = mock(Street.class);
+    when(aStreet.getLocation()).thenReturn(testLoc);
+    hotel.addStreet(aStreet);
+
+    assertEquals(hotel.getStreets().get(0).getLocation(), testLoc);
+  }
+
+  @Test
+  //tests that a location has all streets added.
+  public void testLocationGetStreets() {
+    hotel = new Location("Hotel", false);
+
+    ArrayList<Street> streets =  new ArrayList<Street>();
+    Street street1 = mock(Street.class);
+    streets.add(street1);
+    Street street2 = mock(Street.class);
+    streets.add(street2);
+    Street street3 = mock(Street.class);
+    streets.add(street3);
+
+    hotel.addStreet(street1);
+    hotel.addStreet(street2);
+    hotel.addStreet(street3);
+
+    assertEquals(hotel.getStreets(), streets);
     }
 
+  @Test
+  //Make sure correct number of drivers added to map
+  public void testAddCorrectNumDrivers() {
+    City city = new City(12, 1);
+    ArrayList<Location> locations = new ArrayList<Location>();
+    Location testLoc = mock(Location.class);
+    locations.add(testLoc);
+    ArrayList<Driver> drivers = city.addDriversToMap(locations, new Random(50), 3);
 
-    @Test
-      //Test that add cars places the cars in random spots to begin with
-      public void testAddDriversToMapRandom() {
-        CitySim9005 city = new CitySim9005();
+    assertEquals(drivers.size(), 3);
+  }
 
-        ArrayList<Location> locations = new ArrayList<Location>();
-        locations.add(new Location("Hotel", false));
-        locations.add(new Location("Diner", false));
-        locations.add(new Location("Library", false));
-        locations.add(new Location("Coffee", false));
-        locations.add(new Location("Philadelphia", true));
-        locations.add(new Location("Cleveland", true));
-        Random r = new Random(2323);
-        ArrayList<Driver> drivers = city.addDriversToMap(locations, r);
-        ArrayList<Driver> drivers2 = city.addDriversToMap(locations, r);
-        assertNotEquals(drivers, drivers2);
-      }
+  @Test
+  //Make sure all drivers allocated to consistent places
+  public void testAddDriversToPlace() {
+    City city = new City(12, 1);
+    ArrayList<Location> locations = new ArrayList<Location>();
+    Location testLoc = mock(Location.class);
+    locations.add(testLoc);
+    when(testLoc.getCityName()).thenReturn("Hotel");
+    ArrayList<Driver> drivers = city.addDriversToMap(locations, new Random(50), 3);
 
+    for (Driver d : drivers)
+      assertEquals(d.getCurrentLocationName(), "Hotel");
+  }
+
+  @Test
+  //Test run game runs consistently
+  public void testRunGame() {
+    City testCity1 = new City(12, 5);
+    String test1 = testCity1.runGame(testCity1.drivers);
+
+    City testCity2 = new City(12, 5);
+    String test2 = testCity2.runGame(testCity2.drivers);
+    assertEquals(test1, test2);
+
+  }
 
 }
